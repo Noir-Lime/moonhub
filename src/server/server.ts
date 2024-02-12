@@ -1,9 +1,14 @@
+Error.stackTraceLimit = 100;
+
+// This is necessary for bun to run properly in development.
+// Bun's runtime handle source maps differently, which results in more files being loaded.
+// One of these files is @babel/core which is a dependency of @vitejs/plugin-react.
+// For some reason, @babel/core crashes the source map support when it's loaded by bun, but not nodejs.
 import SourceMapSupport from "source-map-support";
 if (process.versions.bun) {
   SourceMapSupport.install({
-    emptyCacheBetweenOperations: true,
     overrideRetrieveSourceMap: true,
-    retrieveSourceMap: (source) => {
+    retrieveSourceMap: () => {
       return null;
     },
   });
@@ -15,6 +20,11 @@ import { createServer } from "vite";
 import vike from "vike/plugin";
 import { renderPage } from "vike/server";
 import { root_dirname } from "../root";
+import { createExpressMiddleware } from "@trpc/server/adapters/express";
+import { merged_router } from "../lib/trpc/merged.trpc";
+import { createFilenameLogger } from "../lib/logger";
+
+const logger = createFilenameLogger(import.meta.url);
 
 const launchServer = async () => {
   const app = Express();
@@ -26,11 +36,23 @@ const launchServer = async () => {
       server: {
         middlewareMode: true,
       },
-      appType: "custom",
     })
   ).middlewares;
 
   app.use(vite_dev_middleware);
+
+  app.use(
+    "/trpc",
+    createExpressMiddleware({
+      router: merged_router,
+      batching: {
+        enabled: true,
+      },
+      onError({ error }) {
+        logger.error(error);
+      },
+    })
+  );
 
   app.get("*", async (req, res, next) => {
     const rendered_page = await renderPage({

@@ -2,13 +2,29 @@
   "name": "kinetic",
   "module": "index.ts",
   "type": "module",
+  "scripts": {
+    "prisma:push": "dotenv -e .env.dev prisma db push",
+    "prisma:generate": "dotenv -e .env.dev prisma generate"
+  },
   "devDependencies": {
+    "@tanstack/eslint-plugin-query": "^5.20.1",
     "@types/bun": "latest",
+    "@types/eslint": "^8.56.2",
     "@types/express": "^4.17.21",
     "@types/react": "^18.2.55",
     "@types/source-map-support": "^0.5.10",
+    "@typescript-eslint/eslint-plugin": "^6.21.0",
+    "@typescript-eslint/parser": "^6.21.0",
     "@vitejs/plugin-react": "^4.2.1",
+    "eslint": "^8.56.0",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "install": "^0.13.0",
+    "npm": "^10.4.0",
+    "prisma": "^5.9.1",
     "tsx": "^4.7.1",
+    "typescript": "^5.3.3",
+    "typescript-plugin-css-modules": "^5.1.0",
     "vike": "^0.4.161",
     "vike-react": "^0.4.4",
     "vite": "^5.1.1"
@@ -17,9 +33,22 @@
     "typescript": "^5.0.0"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.3",
+    "@emotion/styled": "^11.11.0",
+    "@mui/icons-material": "^5.15.9",
+    "@mui/material": "^5.15.9",
+    "@prisma/client": "^5.9.1",
+    "@tanstack/react-query": "^5.20.1",
+    "@trpc/client": "next",
+    "@trpc/server": "next",
+    "ethers": "^6.11.0",
     "express": "^4.18.2",
+    "opensea-js": "^7.0.9",
+    "pino": "^8.18.0",
+    "pino-pretty": "^10.3.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "sass": "^1.70.0",
     "source-map": "^0.7.4",
     "source-map-support": "^0.5.21"
   }
