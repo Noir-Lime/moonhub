@@ -8,5 +8,10 @@ generator client {
 }
 
 model Cart {
-    cuid String @id @default(cuid())
+    user_id    String
+    nft_id     String
+    collection String
+    image_url  String?
+
+    @@id([nft_id, collection])
 }

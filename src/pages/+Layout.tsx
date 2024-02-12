@@ -1,6 +1,10 @@
 import "./global.scss";
-import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
-import Backdrop from "@mui/material/Backdrop";
+import {
+  Backdrop,
+  CssBaseline,
+  ThemeProvider,
+  createTheme,
+} from "@mui/material";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { Suspense } from "react";
 

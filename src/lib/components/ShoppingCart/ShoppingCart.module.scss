@@ -1,0 +1,17 @@
+.root {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+
+  .badge {
+    z-index: 1051;
+  }
+}
+
+.popper_root {
+  padding: 0.2rem;
+}
+
+.popper_list {
+  width: 24rem;
+}

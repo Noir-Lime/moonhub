@@ -1,10 +1,6 @@
-import { createTRPCClient, httpBatchLink } from "@trpc/client";
-import type { Root_Router } from "../router/root.router";
+import { createTRPCClient } from "@trpc/client";
+import type { Cart_Router } from "../router/cart/cart.router";
+import { shared_client_args } from "./shared";
 
-export const trpc_root_client = createTRPCClient<Root_Router>({
-  links: [
-    httpBatchLink({
-      url: "/trpc",
-    }),
-  ],
-});
+export const trpc_cart_client =
+  createTRPCClient<Cart_Router>(shared_client_args);

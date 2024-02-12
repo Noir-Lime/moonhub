@@ -4,7 +4,8 @@
   "type": "module",
   "scripts": {
     "prisma:push": "dotenv -e .env.dev prisma db push",
-    "prisma:generate": "dotenv -e .env.dev prisma generate"
+    "prisma:generate": "dotenv -e .env.dev prisma generate",
+    "dev": "dotenv -e .env.dev bun run src/server/server.ts"
   },
   "devDependencies": {
     "@tanstack/eslint-plugin-query": "^5.20.1",
@@ -36,13 +37,16 @@
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.15.9",
+    "@mui/lab": "^5.0.0-alpha.165",
     "@mui/material": "^5.15.9",
     "@prisma/client": "^5.9.1",
+    "@sinclair/typebox": "^0.32.14",
     "@tanstack/react-query": "^5.20.1",
     "@trpc/client": "next",
     "@trpc/server": "next",
     "ethers": "^6.11.0",
     "express": "^4.18.2",
+    "mutative": "^1.0.3",
     "opensea-js": "^7.0.9",
     "pino": "^8.18.0",
     "pino-pretty": "^10.3.1",
@@ -50,6 +54,7 @@
     "react-dom": "^18.2.0",
     "sass": "^1.70.0",
     "source-map": "^0.7.4",
-    "source-map-support": "^0.5.21"
+    "source-map-support": "^0.5.21",
+    "vike-react-query": "^0.0.3"
   }
 }

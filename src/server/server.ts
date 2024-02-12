@@ -26,7 +26,7 @@ import { createFilenameLogger } from "../lib/logger";
 
 const logger = createFilenameLogger(import.meta.url);
 
-const launchServer = async () => {
+const launchServer = async (): Promise<void> => {
   const app = Express();
 
   const vite_dev_middleware = (
@@ -62,6 +62,8 @@ const launchServer = async () => {
     if (!rendered_page.httpResponse) {
       return next();
     }
+
+    // rendered_page.httpResponse.pipe(res);
 
     const { body, statusCode, headers, earlyHints } =
       rendered_page.httpResponse;

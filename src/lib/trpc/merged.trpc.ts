@@ -1,5 +1,6 @@
 import { mergeRouters } from "@trpc/server/unstable-core-do-not-import";
-import { root_router } from "./router/root.router";
+import { cart_router } from "./router/cart/cart.router";
+import { asset_router } from "./router/asset.router";
 
-export const merged_router = mergeRouters(root_router);
+export const merged_router = mergeRouters(cart_router, asset_router);
 export type Merged_Router = typeof merged_router;

@@ -1,45 +1,32 @@
+import { Button, Paper, TextField, Typography } from "@mui/material";
 import React from "react";
-import { useQueryClient, useSuspenseQuery } from "@tanstack/react-query";
-import { trpc_root_client } from "../../lib/trpc/client/root.client.trpc";
-import { NftCard } from "./NftCard";
-import Button from "@mui/material/Button";
 import styles from "./root.module.scss";
-import { Grid } from "@mui/material";
+import { navigate } from "vike/client/router";
 
-const Page: React.FC = () => {
-  const { data } = useSuspenseQuery({
-    queryKey: ["hello_world"],
-    queryFn: async () => {
-      return await trpc_root_client.get_assets.query();
-    },
-  });
+const RootPage: React.FC = () => {
+  const [user_id, setUserId] = React.useState<string>("");
 
-  const image_components = React.useMemo(() => {
-    return data?.nfts.map((nft) => {
-      return (
-        <Grid item xs={3} key={nft.identifier}>
-          <NftCard nft={nft} />
-        </Grid>
-      );
-    });
-  }, [data?.nfts]);
-
-  const query_client = useQueryClient();
-  const onRefresh = React.useCallback(() => {
-    query_client.resetQueries();
-  }, [query_client]);
+  const onLogin = React.useCallback(() => {
+    navigate(`/${user_id}`);
+  }, [user_id]);
 
   return (
-    <div>
-      <h1>Root asdf bruh moment</h1>
-      <Grid container spacing={2} className={styles.card_container}>
-        {image_components}
-      </Grid>
-      <Button variant="contained" color="primary" onClick={onRefresh}>
-        Refresh
-      </Button>
+    <div className={styles.root}>
+      <Paper className={styles.paper}>
+        <Typography variant="h5">Log In</Typography>
+        <TextField
+          size="small"
+          value={user_id}
+          onChange={(e) => {
+            setUserId(e.target.value);
+          }}
+        />
+        <Button variant="contained" disabled={!user_id} onClick={onLogin}>
+          Continue
+        </Button>
+      </Paper>
     </div>
   );
 };
 
-export default Page;
+export default RootPage;

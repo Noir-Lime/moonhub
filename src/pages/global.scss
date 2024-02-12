@@ -1,0 +1,21 @@
+html,
+body,
+#page-view {
+  height: 100%;
+  box-sizing: border-box;
+}
+
+* {
+  &::-webkit-scrollbar {
+    width: 0.4rem;
+    height: 0.4rem;
+  }
+
+  &::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0);
+  }
+  &::-webkit-scrollbar-thumb {
+    background-origin: rgba(0, 0, 0, 0.1);
+    background-color: rgba($color: #a5a4a4, $alpha: 1);
+  }
+}

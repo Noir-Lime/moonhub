@@ -5,10 +5,6 @@ declare module "*.module.css" {
 }
 
 declare module "*.scss" {
-  export default null;
-}
-
-declare module "*.module.scss" {
   const classes: { [key: string]: string };
   export default classes;
 }
