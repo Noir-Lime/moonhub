@@ -11,9 +11,10 @@
     "test": "dotenv -e .env.test vitest run",
     "integration": "bun run setup:test && bun run test",
     "prebuild": "prisma generate",
-    "build": "bun run prebuild && vite build",
-    "start": "bun run src/server/server.ts",
-    "dev": "dotenv -e .env.dev bun run start"
+    "build": "vite build",
+    "start": "bun run server/server.ts",
+    "dev": "dotenv -e .env.dev bun run start",
+    "prod": "dotenv -e .env.prod bun run start"
   },
   "devDependencies": {
     "@tanstack/eslint-plugin-query": "^5.20.1",
@@ -25,6 +26,7 @@
     "@typescript-eslint/eslint-plugin": "^6.21.0",
     "@typescript-eslint/parser": "^6.21.0",
     "@vitejs/plugin-react": "^4.2.1",
+    "dotenv-cli": "^7.3.0",
     "eslint": "^8.56.0",
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",

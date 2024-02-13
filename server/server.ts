@@ -16,10 +16,10 @@ if (process.versions.bun) {
 
 import Express from "express";
 import { renderPage } from "vike/server";
-import { root_dirname } from "../../root";
+import { root_dirname } from "../root";
 import { createExpressMiddleware } from "@trpc/server/adapters/express";
-import { merged_router } from "../lib/trpc/merged.trpc";
-import { createFilenameLogger, root_logger } from "../lib/logger";
+import { merged_router } from "../src/lib/trpc/merged.trpc";
+import { createFilenameLogger, root_logger } from "../src/lib/logger";
 import path from "path";
 
 const logger = createFilenameLogger(import.meta.url);

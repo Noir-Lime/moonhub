@@ -9,3 +9,14 @@ services:
       POSTGRES_DB: ${DB_NAME}
     ports:
       - "${DB_PORT}:5432"
+
+  kinetic:
+    image: kinetic
+    restart: always
+    environment:
+      DATABASE_URL: postgresql://postgres:asdf1234@db:5432/postgres
+      OPENSEA_API_KEY: 0110362e339f4ddf9083efe99582e724
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
