@@ -1,3 +1,9 @@
 import { PrismaClient } from "@prisma/client";
+import { createFilenameLogger } from "../logger";
 
-export const prisma = new PrismaClient();
+const logger = createFilenameLogger(import.meta.url);
+
+export const getPrisma = (): PrismaClient => {
+  logger.trace("Getting Prisma");
+  return new PrismaClient();
+};

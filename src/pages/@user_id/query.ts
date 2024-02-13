@@ -1,12 +1,15 @@
 import type { QueryFunctionContext } from "@tanstack/react-query";
-import { trpc_cart_client } from "../../lib/trpc/client/root.client.trpc";
+import { trpc_cart_client } from "../../lib/trpc/client/root.trpc";
 import type {
   T_Cart,
   T_Update_Cart_Input,
 } from "../../lib/trpc/router/cart/cart.interface";
 import { combineNftandCollectionID, reduceNftToID } from "../../lib/utils/nft";
 import type { NFT } from "opensea-js";
-import { trpc_asset_client } from "../../lib/trpc/client/asset.client.trpc";
+import { trpc_asset_client } from "../../lib/trpc/client/asset.trpc";
+import { createFilenameLogger } from "../../lib/logger";
+
+const logger = createFilenameLogger(import.meta.url);
 
 export const Cart_Q_Key = "get_cart";
 export const getCart_Key = (user_id: string) => [Cart_Q_Key, user_id] as const;
@@ -15,6 +18,7 @@ export const getCart_Fn = async ({
 }: QueryFunctionContext<ReturnType<typeof getCart_Key>>): Promise<
   Map<string, T_Cart>
 > => {
+  logger.debug({ queryKey }, "getCart_Fn input");
   const cart_list = await trpc_cart_client.get_cart.query({
     user_id: queryKey[1],
   });
@@ -34,12 +38,13 @@ export const getCart_Fn = async ({
 export const updateCart_Fn = async (
   input: T_Update_Cart_Input
 ): Promise<void> => {
-  console.debug("Update Cart");
+  logger.debug({ input }, "updateCart_Fn input");
   await trpc_cart_client.update_cart.mutate(input);
 };
 
 export const Opensea_Q_Key = "opensea_nfts";
 export const getOpenseaNfts_Fn = async (): Promise<Map<string, NFT>> => {
+  logger.debug("getOpenseaNfts_Fn");
   // Set minimum delay to 1 second
   const [response] = await Promise.all([
     trpc_asset_client.get_assets.query(),

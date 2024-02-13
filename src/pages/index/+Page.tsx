@@ -17,6 +17,7 @@ const RootPage: React.FC = () => {
         <TextField
           size="small"
           value={user_id}
+          label="User ID"
           onChange={(e) => {
             setUserId(e.target.value);
           }}

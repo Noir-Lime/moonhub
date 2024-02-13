@@ -1,0 +1,11 @@
+# Launch simple postgres server
+services:
+  integration-db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: ${TEST_DB_PASSWORD}
+      POSTGRES_USER: ${TEST_DB_USER}
+      POSTGRES_DB: ${TEST_DB_NAME}
+    ports:
+      - "${TEST_DB_PORT}:5432"

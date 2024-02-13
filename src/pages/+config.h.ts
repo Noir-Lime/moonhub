@@ -6,5 +6,4 @@ export default {
   title: "My App",
   extends: [vikeReact, vikeReactQuery],
   passToClient: ["routeParams"],
-  ssr: false,
 } satisfies Config;

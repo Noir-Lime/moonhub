@@ -13,5 +13,5 @@ model Cart {
     collection String
     image_url  String?
 
-    @@id([nft_id, collection])
+    @@id([nft_id, collection, user_id])
 }

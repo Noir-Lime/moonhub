@@ -15,31 +15,34 @@ if (process.versions.bun) {
 }
 
 import Express from "express";
-import react from "@vitejs/plugin-react";
-import { createServer } from "vite";
-import vike from "vike/plugin";
 import { renderPage } from "vike/server";
-import { root_dirname } from "../root";
+import { root_dirname } from "../../root";
 import { createExpressMiddleware } from "@trpc/server/adapters/express";
 import { merged_router } from "../lib/trpc/merged.trpc";
-import { createFilenameLogger } from "../lib/logger";
+import { createFilenameLogger, root_logger } from "../lib/logger";
+import path from "path";
 
 const logger = createFilenameLogger(import.meta.url);
+
+const is_production = process.env.NODE_ENV === "production";
 
 const launchServer = async (): Promise<void> => {
   const app = Express();
 
-  const vite_dev_middleware = (
-    await createServer({
+  if (is_production) {
+    root_logger.info("Running in production mode");
+    app.use(Express.static(path.join(root_dirname, "dist/client")));
+  } else {
+    root_logger.info("Running in development mode");
+    const vite = await import("vite");
+    const vite_dev_server = await vite.createServer({
       root: root_dirname,
-      plugins: [react(), vike({ prerender: true })],
       server: {
         middlewareMode: true,
       },
-    })
-  ).middlewares;
-
-  app.use(vite_dev_middleware);
+    });
+    app.use(vite_dev_server.middlewares);
+  }
 
   app.use(
     "/trpc",
@@ -63,21 +66,13 @@ const launchServer = async (): Promise<void> => {
       return next();
     }
 
-    // rendered_page.httpResponse.pipe(res);
-
-    const { body, statusCode, headers, earlyHints } =
-      rendered_page.httpResponse;
-
-    if (res.writeEarlyHints)
-      res.writeEarlyHints({ link: earlyHints.map((e) => e.earlyHintLink) });
-
-    headers.forEach(([name, value]) => res.setHeader(name, value));
-    res.status(statusCode);
-    res.send(body);
+    rendered_page.httpResponse.pipe(res);
   });
 
-  app.listen(3000, () => {
-    console.log("Server is running on port 3000");
+  const port = import.meta.env.PORT || 3000;
+
+  app.listen(import.meta.env.PORT || 3000, () => {
+    root_logger.info(`Server is running on port ${port}`);
   });
 };
 

@@ -3,9 +3,17 @@
   "module": "index.ts",
   "type": "module",
   "scripts": {
-    "prisma:push": "dotenv -e .env.dev prisma db push",
+    "prisma:push:dev": "dotenv -e .env.dev prisma db push",
+    "prisma:push:test": "dotenv -e .env.test prisma db push",
     "prisma:generate": "dotenv -e .env.dev prisma generate",
-    "dev": "dotenv -e .env.dev bun run src/server/server.ts"
+    "setup:dev": "dotenv -e .env.dev bash ./scripts/setup_dev.sh && bun run prisma:push:dev",
+    "setup:test": "dotenv -e .env.test bash ./scripts/setup_integration.sh && bun run prisma:push:test",
+    "test": "dotenv -e .env.test vitest run",
+    "integration": "bun run setup:test && bun run test",
+    "prebuild": "prisma generate",
+    "build": "bun run prebuild && vite build",
+    "start": "bun run src/server/server.ts",
+    "dev": "dotenv -e .env.dev bun run start"
   },
   "devDependencies": {
     "@tanstack/eslint-plugin-query": "^5.20.1",
@@ -28,7 +36,8 @@
     "typescript-plugin-css-modules": "^5.1.0",
     "vike": "^0.4.161",
     "vike-react": "^0.4.4",
-    "vite": "^5.1.1"
+    "vite": "^5.1.1",
+    "vitest": "^1.2.2"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
@@ -46,6 +55,7 @@
     "@trpc/server": "next",
     "ethers": "^6.11.0",
     "express": "^4.18.2",
+    "fast-equals": "^5.0.1",
     "mutative": "^1.0.3",
     "opensea-js": "^7.0.9",
     "pino": "^8.18.0",
@@ -53,6 +63,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "sass": "^1.70.0",
+    "sirv": "^2.0.4",
     "source-map": "^0.7.4",
     "source-map-support": "^0.5.21",
     "vike-react-query": "^0.0.3"
