@@ -1,5 +1,5 @@
 {
-  "name": "kinetic",
+  "name": "moonhub",
   "module": "index.ts",
   "type": "module",
   "scripts": {
@@ -32,40 +32,39 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "install": "^0.13.0",
     "npm": "^10.4.0",
-    "prisma": "^5.9.1",
     "tsx": "^4.7.1",
     "typescript": "^5.3.3",
     "typescript-plugin-css-modules": "^5.1.0",
     "vike": "^0.4.161",
     "vike-react": "^0.4.4",
-    "vite": "^5.1.1",
-    "vitest": "^1.2.2"
+    "vite": "^5.1.1"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
   },
   "dependencies": {
+    "@chatscope/chat-ui-kit-react": "^1.10.1",
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.15.9",
     "@mui/lab": "^5.0.0-alpha.165",
     "@mui/material": "^5.15.9",
+    "@paralleldrive/cuid2": "^2.2.2",
     "@prisma/client": "^5.9.1",
     "@sinclair/typebox": "^0.32.14",
+    "@sinclair/typebox-codegen": "^0.9.7",
     "@tanstack/react-query": "^5.20.1",
     "@trpc/client": "next",
     "@trpc/server": "next",
-    "ethers": "^6.11.0",
     "express": "^4.18.2",
     "fast-equals": "^5.0.1",
     "mutative": "^1.0.3",
-    "opensea-js": "^7.0.9",
+    "openai": "^4.28.0",
     "pino": "^8.18.0",
     "pino-pretty": "^10.3.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "sass": "^1.70.0",
-    "sirv": "^2.0.4",
     "source-map": "^0.7.4",
     "source-map-support": "^0.5.21",
     "vike-react-query": "^0.0.3"
